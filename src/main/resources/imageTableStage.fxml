@@ -4,20 +4,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ImageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ImageController">
     <children>
-        <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
-        <Label layoutX="194.0" layoutY="21.0" text="Image" />
-        <Button fx:id="searchEmpBtn" layoutX="194.0" layoutY="70.0" mnemonicParsing="false" onAction="#viewImage" prefHeight="25.0" prefWidth="56.0" text="Search" />
-
-
-        <TableView fx:id="imageTable" editable="false" layoutX="193.0" layoutY="102.0" prefHeight="500.0" prefWidth="400.0" tableMenuButtonVisible="true">
+        <VBox alignment="CENTER" prefHeight="800.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+        <Label text="Images" />
+<!--        <Button fx:id="searchEmpBtn" layoutX="194.0" layoutY="70.0" mnemonicParsing="false" onAction="#viewImage" prefHeight="25.0" prefWidth="56.0" text="Search" />-->
+        <TableView fx:id="imageTable" editable="false" prefHeight="300.0" prefWidth="400.0" tableMenuButtonVisible="true">
             <columns>
                 <TableColumn fx:id="imageColumn" prefWidth="200.0" text="Image" />
-                <TableColumn fx:id="commentColumn" prefWidth="200.0" text="Comment" />
+                <TableColumn fx:id="commentImageColumn" prefWidth="200.0" text="Comment" />
             </columns>
         </TableView>
-        <Button fx:id="searchEmpsBtn" layoutX="396.0" layoutY="70.0" mnemonicParsing="false" onAction="#searchImages" prefHeight="25.0" prefWidth="139.0" text="Load Images" />
+        <Button fx:id="searchImagesBtn" mnemonicParsing="false" onAction="#searchImages" prefHeight="25.0" prefWidth="139.0" text="Load Images" />
+
+            <Separator prefHeight="4.0" prefWidth="600.0" style="-fx-padding: 10 0 10 0;" />
+
+            <Label text="Videos" />
+<!--            <Button fx:id="searchEmpBtn" layoutX="194.0" layoutY="70.0" mnemonicParsing="false" onAction="#viewImage" prefHeight="25.0" prefWidth="56.0" text="Search" />-->
+            <TableView fx:id="videoTable" editable="false" prefHeight="300.0" prefWidth="400.0" tableMenuButtonVisible="true">
+                <columns>
+                    <TableColumn fx:id="videoColumn" prefWidth="200.0" text="Video" />
+                    <TableColumn fx:id="commentVideoColumn" prefWidth="200.0" text="Comment" />
+                </columns>
+            </TableView>
+            <Button fx:id="searchVideosBtn" mnemonicParsing="false" onAction="#searchVideos" prefHeight="25.0" prefWidth="139.0" text="Load Videos" />
         </VBox>
     </children>
 </AnchorPane>

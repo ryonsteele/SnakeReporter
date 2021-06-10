@@ -1,4 +1,4 @@
-package sample;
+package sample.models;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.ImageView;
 
@@ -10,7 +10,7 @@ public class CustomImage {
 
     private StringProperty comment;
 
-    CustomImage(ImageView img) {
+    public CustomImage(ImageView img) {
         this.image = img;
     }
 

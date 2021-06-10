@@ -1,19 +1,26 @@
 package sample;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
+import sample.models.CustomImage;
+import sample.models.CustomVideo;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -22,9 +29,15 @@ public class ImageController {
     @FXML
     private TableView imageTable;
     @FXML
+    private TableView videoTable;
+    @FXML
     private TableColumn<CustomImage, ImageView> imageColumn;
     @FXML
-    private TableColumn<CustomImage, String>  commentColumn;
+    private TableColumn<CustomVideo, ImageView> videoColumn;
+    @FXML
+    private TableColumn<CustomImage, String>  commentImageColumn;
+    @FXML
+    private TableColumn<CustomVideo, String>  commentVideoColumn;
 
     //For MultiThreading
     private Executor exec;
@@ -51,7 +64,10 @@ public class ImageController {
         });
 
         imageColumn.setCellValueFactory(new PropertyValueFactory<CustomImage, ImageView>("imageThumb"));
-        commentColumn.setCellValueFactory(cellData -> cellData.getValue().getComment());
+        commentImageColumn.setCellValueFactory(cellData -> cellData.getValue().getComment());
+
+        videoColumn.setCellValueFactory(new PropertyValueFactory<CustomVideo, ImageView>("imageThumb"));
+        commentVideoColumn.setCellValueFactory(cellData -> cellData.getValue().getComment());
 
     }
 
@@ -75,4 +91,35 @@ public class ImageController {
 
         imageTable.setItems(imgList);
     }
+
+    public void searchVideos(ActionEvent actionEvent) {
+
+        File dir = new File("/Users/js32938/Desktop/tempFiles/videos") ;
+
+        ObservableList<CustomVideo> imgList = FXCollections.observableArrayList();
+        for(File f : dir.listFiles()) {
+            CustomVideo item_1 = new CustomVideo(f.toURI().toString());
+            item_1.setImageThumb(new ImageView(new Image("playVid.png", 200, 200, false, false)));
+            item_1.setComment(new SimpleStringProperty("Hello World"));
+            imgList.add(item_1);
+        }
+
+        videoTable.setItems(imgList);
+    }
+
+//    public void startVideo(Stage primaryStage) throws MalformedURLException {
+//        File mediaFile = new File("assets/media/Golden-48569.mp4");
+//        Media media = new Media(mediaFile.toURI().toURL().toString());
+//
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//
+//        MediaView mediaView = new MediaView(mediaPlayer);
+//
+//        Scene scene = new Scene(new Pane(mediaView), 1024, 800);
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//
+//        mediaPlayer.play();
+//
+//    }
 }
