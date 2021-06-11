@@ -44,22 +44,15 @@ public class Main extends Application {
 
     public void initRootLayout() {
         try {
-            //First, load root layout from RootLayout.fxml
-           // FXMLLoader loader = new FXMLLoader();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../rootStage.fxml"));
-
-            //loader.setLocation(Main.class.getResource("/rootStage.fxml"));
             rootLayout = (BorderPane) loader.load();
-
-//            TableView<CustomImage> table = setupImageTable();
-//            rootLayout.setCenter(table);
 
             //Second, show the scene containing the root layout.
             Scene scene = new Scene(rootLayout); //We are sending rootLayout to the Scene.
             primaryStage.setScene(scene); //Set the scene in primary stage.
 
             //Third, show the primary stage
-            primaryStage.show(); //Display the primary stage
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,13 +61,9 @@ public class Main extends Application {
     //Shows the employee operations view inside the root layout.
     public void showEmployeeView() {
         try {
-            //First, load EmployeeView from EmployeeView.fxml
-            //FXMLLoader loader = new FXMLLoader();
-            //loader.setLocation(Main.class.getResource("../EmployeeView.fxml"));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../imageTableStage.fxml"));
             AnchorPane employeeOperationsView = (AnchorPane) loader.load();
 
-            // Set Employee Operations view into the center of root layout.
             rootLayout.setCenter(employeeOperationsView);
         } catch (IOException e) {
             e.printStackTrace();

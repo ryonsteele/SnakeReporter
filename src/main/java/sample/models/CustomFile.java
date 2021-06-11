@@ -2,16 +2,23 @@ package sample.models;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.ImageView;
 
-public class CustomImage {
+public class CustomFile {
 
     private ImageView image;
+
+    private String path;
+
+    private StringProperty fileType;
 
     private ImageView imageThumb;
 
     private StringProperty comment;
 
-    public CustomImage(ImageView img) {
+    public CustomFile(ImageView img) {
         this.image = img;
+    }
+    public CustomFile(String pth) {
+        this.path = pth;
     }
 
     public void setImage(ImageView value) {
@@ -20,6 +27,22 @@ public class CustomImage {
 
     public ImageView getImage() {
         return image;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public StringProperty getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(StringProperty fileType) {
+        this.fileType = fileType;
     }
 
     public ImageView getImageThumb() {
