@@ -27,13 +27,16 @@ import javafx.scene.media.MediaView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
+import sample.models.CodeDTO;
 import sample.models.CustomFile;
 import sample.models.CustomVideo;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Scanner;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -122,6 +125,8 @@ public class ImageController {
         File videoDir = null;
 
         File selectedDir = sourceDirectoryChooser.showDialog(theStage);
+        if(selectedDir == null) return;
+
         for(File f : selectedDir.listFiles()){
             if(f.isDirectory() && f.getName().equalsIgnoreCase("images")){
                 imageDir = f;
@@ -133,7 +138,7 @@ public class ImageController {
 
         if(imageDir != null && imageDir.isDirectory()) {
             for (File f : imageDir.listFiles()) {
-                CustomFile item_1 = new CustomFile(new ImageView(new Image(f.toURI().toString())));
+                CustomFile item_1 = new CustomFile(new ImageView(new Image(f.toURI().toString(), 600, 600, true, false)));
                 item_1.setImageThumb(new ImageView(new Image(f.toURI().toString(), 100, 100, false, false)));
                 item_1.setComment(new SimpleStringProperty("Hello World"));
                 item_1.setFileType(new SimpleStringProperty("Image"));
@@ -162,7 +167,7 @@ public class ImageController {
                 stage.setTitle("Viewer");
 
                 if(file.getFileType().isEqualToIgnoreCase("Video").getValue()) {
-                    isPlaying = false;
+                    isPlaying = true;
                     media = new Media(file.getPath());
                     mediaPlayer = new MediaPlayer(media);
                     MediaView mediaView = new MediaView(mediaPlayer);
@@ -172,6 +177,7 @@ public class ImageController {
                     stack.getChildren().add(playPausebtn);
                     Scene scene = new Scene(stack, 700, 500);
                     stage.setScene(scene);
+                    stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::stop);
                     stage.show();
 
                     mediaPlayer.play();
@@ -188,8 +194,7 @@ public class ImageController {
     }
 
 
-    public void pauseResume()
-    {
+    public void pauseResume() {
         new Thread(new Task<>() {
             @Override
             protected Object call() throws Exception {
@@ -222,8 +227,9 @@ public class ImageController {
         }).start();
     }
 
-    public void stop()
+    public void stop(WindowEvent ev)
     {
+        System.out.println("Stop Method");
         if(isPlaying)
         {
             isPlaying = false;

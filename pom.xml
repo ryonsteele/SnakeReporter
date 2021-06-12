@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -35,9 +35,10 @@
         <plugin>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-maven-plugin</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
             <configuration>
                 <mainClass>sample.Main</mainClass>
+                <executable>"C:\Program Files\Java\jdk-11.0.2\bin\java.exe"</executable>
             </configuration>
         </plugin>
     </plugins>
