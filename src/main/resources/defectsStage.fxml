@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="sample.Controllers.DefectsController">
+    <padding><Insets bottom="30" left="30" right="30" top="30" /></padding>
+    <columnConstraints>
+        <ColumnConstraints halignment="RIGHT" maxWidth="Infinity" minWidth="100.0" prefWidth="100.0">
+        </ColumnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="600.0" prefWidth="600.0">
+        </ColumnConstraints>
+      <ColumnConstraints />
+    </columnConstraints>
+
+    <!-- Add Header Label -->
+    <Label text="Defects Management" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="1">
+        <font>
+            <Font name="Arial" size="24" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="20" left="0" right="0" top="20" />
+        </GridPane.margin>
+    </Label>
+
+
+    <Label text="Defect Name : " GridPane.columnIndex="0" GridPane.rowIndex="1">
+    </Label>
+    <ComboBox fx:id="comboDefects" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <Label text="Description : " GridPane.columnIndex="0" GridPane.rowIndex="2">
+    </Label>
+    <TextArea fx:id="descField" prefHeight="200" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+
+    <!-- Add Submit Button -->
+    <Button fx:id="updateButton" defaultButton="true" onAction="#handleUpdateButtonAction" prefHeight="40" prefWidth="100" text="Update" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.rowSpan="1">
+        <GridPane.margin>
+            <Insets bottom="20" left="0" right="0" top="20" />
+        </GridPane.margin>
+    </Button>
+    <Button fx:id="addButton" defaultButton="true" onAction="#handleAddButtonAction" prefHeight="40" prefWidth="100" text="Add" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="1">
+        <GridPane.margin>
+            <Insets bottom="20" left="0" right="160" top="20" />
+        </GridPane.margin>
+    </Button>
+    <Button fx:id="deleteButton" defaultButton="true" onAction="#handleDeleteButtonAction" prefHeight="40" prefWidth="100" text="Delete" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="1">
+        <GridPane.margin>
+            <Insets bottom="20" left="160" right="0" top="20" />
+        </GridPane.margin>
+    </Button>
+    <Button fx:id="cancelButton" onAction="#handleCancelButtonAction" prefHeight="40" prefWidth="100" text="Cancel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.rowSpan="1">
+        <GridPane.margin>
+            <Insets bottom="20" left="0" right="0" top="20" />
+        </GridPane.margin>
+    </Button>
+</GridPane>

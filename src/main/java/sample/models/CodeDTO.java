@@ -1,15 +1,34 @@
 package sample.models;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "defectcodes")
 public class CodeDTO {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    @Column(name = "code")
     private String code;
+    @Column(name = "code_name")
     private String name;
+    @Column(name = "code_desc", length = 10000)
     private String desc;
+
 
     public CodeDTO(String code, String name, String desc) {
         this.code = code;
         this.name = name;
         this.desc = desc;
+    }
+
+    public CodeDTO(){}
+
+    public int getId() {
+        return id;
     }
 
     public String getCode() {

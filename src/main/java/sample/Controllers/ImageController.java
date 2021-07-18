@@ -1,4 +1,4 @@
-package sample;
+package sample.Controllers;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -10,7 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -29,14 +27,13 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
+import sample.HibernateUtil;
 import sample.models.CodeDTO;
 import sample.models.CustomFile;
-import sample.models.CustomVideo;
+import sample.models.NoteDTO;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.Scanner;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -53,6 +50,9 @@ public class ImageController {
     @FXML
     private ContextMenu contextMenu;
 
+    private ComboBox<CodeDTO> comboDefects = new ComboBox<>();
+    private ComboBox<NoteDTO> comboNotes = new ComboBox<>();
+
     private DirectoryChooser sourceDirectoryChooser;
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -60,6 +60,7 @@ public class ImageController {
     private Button playPausebtn = new Button("Pause");
     //For MultiThreading
     private Executor exec;
+    private HibernateUtil hibernateUtil = new HibernateUtil();
 
 
 
@@ -163,6 +164,39 @@ public class ImageController {
             Parent root;
             try {
 
+                ObservableList<CodeDTO> codes = FXCollections.observableArrayList();
+                codes.addAll((List<CodeDTO>)(List<?>) hibernateUtil.selectAll(CodeDTO.class));
+                comboDefects.getItems().addAll(codes);
+
+
+                Callback<ListView<CodeDTO>, ListCell<CodeDTO>> factory = lv -> new ListCell<CodeDTO>() {
+                    @Override
+                    protected void updateItem(CodeDTO item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? "" : item.getName());
+                    }
+                };
+
+                comboDefects.setCellFactory(factory);
+                comboDefects.setButtonCell(factory.call(null));
+
+                ObservableList<NoteDTO> notes = FXCollections.observableArrayList();
+                notes.addAll((List<NoteDTO>)(List<?>) hibernateUtil.selectAll(NoteDTO.class));
+                comboNotes.getItems().addAll(notes);
+
+
+                Callback<ListView<NoteDTO>, ListCell<NoteDTO>> factoryNotes = lv -> new ListCell<NoteDTO>() {
+                    @Override
+                    protected void updateItem(NoteDTO item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(empty ? "" : item.getName());
+                    }
+                };
+
+                comboNotes.setCellFactory(factoryNotes);
+                comboNotes.setButtonCell(factoryNotes.call(null));
+
+
                 Stage stage = new Stage();
                 stage.setTitle("Viewer");
 
@@ -175,7 +209,10 @@ public class ImageController {
                     VBox stack = new VBox();
                     stack.getChildren().add(mediaView);
                     stack.getChildren().add(playPausebtn);
+                    stack.getChildren().add(comboNotes);
+                    stack.getChildren().add(comboDefects);
                     Scene scene = new Scene(stack, 700, 500);
+                    scene.getRoot().setStyle("-fx-font-family: 'serif'");
                     stage.setScene(scene);
                     stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::stop);
                     stage.show();
@@ -183,7 +220,12 @@ public class ImageController {
                     mediaPlayer.play();
 
                 }else{
-                    Scene scene = new Scene(new Pane(file.getImage()), 700, 500);
+                    VBox stack = new VBox();
+                    stack.getChildren().add(new Pane(file.getImage()));
+                    stack.getChildren().add(comboNotes);
+                    stack.getChildren().add(comboDefects);
+                    Scene scene = new Scene(stack, 700, 500);
+                    scene.getRoot().setStyle("-fx-font-family: 'serif'");
                     stage.setScene(scene);
                     stage.show();
                 }
